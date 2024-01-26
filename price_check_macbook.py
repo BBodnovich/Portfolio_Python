@@ -13,15 +13,18 @@ Usage:
 4) Run the code and wait for your price drop email
 '''
 
+
 import smtplib
 import time
 import requests
 from bs4 import BeautifulSoup
 
+
 agent = {"User-Agent":"Mozilla/5.0"}
 web_url = "https://www.bestbuy.com/site/apple-macbook-pro-14-laptop-m3-max-chip-36gb-memory-30-core-gpu-1tb-ssd-latest-model-silver/6534621.p?skuId=6534621"
 web_page = requests.get(url=web_url, headers=agent, timeout=10).text
 soup = BeautifulSoup(web_page, "html.parser")
+
 
 def price_check():
     price_element = soup.find_all("div", class_="priceView-customer-price")
@@ -51,5 +54,6 @@ def price_check():
     else:
         time.sleep(43200)
         price_check()
+
 
 price_check()
