@@ -7,13 +7,12 @@ Usage:
 2) Make the modifications for your personal account data below
 3) Enjoy some nostalgic music
 
-Modifications:
-    SPOTIFY_CLIENT_ID
-    SPOTIFY_CLIENT_SECRET
-    SPOTIFY_REDIRECT_URI
-    SPOTIFY_USERNAME
+Exports:
+    export 'SPOTIFY_CLIENT_ID'='<client_id>'
+    export 'SPOTIFY_CLIENT_SECRET'='<client_secret>'
+    export 'SPOTIFY_REDIRECT_URI'='<redirect_uri>'
+    export 'SPOTIFY_USERNAME'='<your_username>'
 '''
-
 
 import requests
 from bs4 import BeautifulSoup
@@ -26,6 +25,10 @@ SPOTIFY_CLIENT_ID = "REDACTED"
 SPOTIFY_CLIENT_SECRET = "REDACTED"
 SPOTIFY_REDIRECT_URI = "REDACTED"
 SPOTIFY_USERNAME = "REDACTED"
+# SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+# SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+# SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
+# SPOTIFY_USERNAME = os.environ.get("SPOTIFY_USERNAME")
 
 
 def get_playlist(date):
