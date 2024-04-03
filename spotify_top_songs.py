@@ -1,6 +1,6 @@
 '''
-Creates a spotify playlist for your top songs in a given period
-Naming convention is 'Your Top Songs'
+Creates Spotify playlist for your top songs in a given period
+Playlist naming convention is 'Your Top Songs'
 
 Usage:
 1) Set up Spotify Developer API for your account
@@ -21,28 +21,22 @@ SPOTIFY_RANGE values:
 '''
 
 
+import os
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
 
 # Constants for use with Spotipy API
-SPOTIFY_CLIENT_ID = "REDACTED"
-SPOTIFY_CLIENT_SECRET = "REDACTED"
-SPOTIFY_REDIRECT_URI = "REDACTED"
-SPOTIFY_USERNAME = "REDACTED"
+SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
+SPOTIFY_USERNAME = os.environ.get("SPOTIFY_USERNAME")
 SPOTIFY_RANGE = 'long_term'
 
 
 def get_top_songs():
-    '''
-    Uses spotipy.Spotify to query your top 50 (max number) of songs for a given period.
+    '''Uses spotipy.Spotify to query your top 50 (max number) of songs for a given period.'''
 
-    param: SPOTIFY_RANGE
-      short-term     = Last 4 weeks
-      medium_term    = Last 6 months
-      long_term      = All time
-    return: List of song URIs for use with Spotify API
-    '''
     sp = Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID,
                                                 client_secret=SPOTIFY_CLIENT_SECRET,
                                                 redirect_uri=SPOTIFY_REDIRECT_URI,
@@ -54,12 +48,8 @@ def get_top_songs():
 
 
 def add_spotify_playlist(song_uris):
-    '''
-    Creates a Spotify playlist with the input list generated from get_playlist().
+    '''Create Spotify playlist with the input list generated from get_playlist().'''
 
-    param input_list: List of 100 song/artist tuple pairs.
-    param year: The year of the playlist in format 'YYYY'.
-    '''
     sp = Spotify(
         auth_manager=SpotifyOAuth(
             scope="playlist-modify-private",
@@ -80,11 +70,7 @@ def add_spotify_playlist(song_uris):
 
 
 def main():
-    '''
-    Main function that takes query years and processes them through playlist lookup and creation.
-
-    param billboard_years: List of years in format 'YYYY-MM-DD'.
-    '''
+    '''Main function, takes query years and processes them through playlist lookup and creation.'''
     song_uri_list = get_top_songs()
     add_spotify_playlist(song_uri_list)
 
